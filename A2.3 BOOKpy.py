@@ -22,7 +22,7 @@ def perceptron(x, y, b, w_init, eta, epoch):
 
 
     w = w_init
-    #x.insert(0, "1", 1, True)
+    x.insert(0, "1", 1, True)
     x = x.to_numpy()
 
     for k in range(epoch):
@@ -33,19 +33,21 @@ def perceptron(x, y, b, w_init, eta, epoch):
         #print(w[1:].T @ xi)
         if y[i] == 0:
             print(w.T @ xi)
-            if(w.T @ xi) > 0 or (w.T @ xi) <= b:
+            dot_product = w.T @ xi
+            if(w.T @ xi) >= 0 and (w.T @ xi) <= b:
                 #print("Classified correctly with too small margin")
                 update = np.multiply(eta * k, xi)
-                update = update.reshape((update.shape[0], 1))
+                #update = update.reshape((update.shape[0], 1))
                 w += update
                 #print((eta * k))
                 #print((eta * k)  * xi)
 
         if y[i] == 1:
             print(w.T @ xi)
-            if(w.T @ xi) < 0 or (w.T @ xi) <= b:
+            dot_product =w.T @ xi
+            if(w.T @ xi) <= 0 and (w.T @ xi) <= b:
                 update = np.multiply(eta * k,  xi)
-                update = update.reshape((update.shape[0], 1))
+                #update = update.reshape((update.shape[0], 1))
                 w += update
 
 
@@ -54,6 +56,6 @@ def perceptron(x, y, b, w_init, eta, epoch):
 
 
 w_init = np.zeros([x.shape[1], 1])
-
+w_init = np.append(1, w_init)
 p = perceptron(x, y.to_numpy(), 2, w_init=w_init, eta=0.1, epoch=10)
 print(p)
