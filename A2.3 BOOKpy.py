@@ -34,15 +34,19 @@ def perceptron(x, y, b, w_init, eta, epoch):
         if y[i] == 0:
             print(w.T @ xi)
             if(w.T @ xi) > 0 or (w.T @ xi) <= b:
-                print("Classified correctly with too small margin")
-                w = w + (eta * k) * xi
+                #print("Classified correctly with too small margin")
+                update = np.multiply(eta * k, xi)
+                update = update.reshape((update.shape[0], 1))
+                w += update
                 #print((eta * k))
                 #print((eta * k)  * xi)
 
         if y[i] == 1:
             print(w.T @ xi)
             if(w.T @ xi) < 0 or (w.T @ xi) <= b:
-                w = w + (eta * k) * xi
+                update = np.multiply(eta * k,  xi)
+                update = update.reshape((update.shape[0], 1))
+                w += update
 
 
 
