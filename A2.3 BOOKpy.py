@@ -44,16 +44,15 @@ def perceptron(x, y, b, w_init, eta, epoch):
 w_init = np.zeros([x.shape[1], 1])
 w_init = np.append(1, w_init)
 p = perceptron(x, y.to_numpy(), 1, w_init=w_init, eta=0.1, epoch=50)
-print(p)
-print(p.shape)
+
+x = x.to_numpy()
+
 
 def predict(w, x):
-
     x = x.to_numpy()
+    pred = x @ w[1:] + w[0]
 
-    pred = x @ w
-
-    for i in range (len(pred)):
+    for i in range(len(pred)):
         if pred[i] > 0:
             pred[i] = 1
         elif pred[i] < 0:
@@ -61,11 +60,7 @@ def predict(w, x):
     return pred
 
 pred = predict(p, x)
+print(pred)
+print(type(pred))
 
-"""
-ypred = 0
-if (w_pred) >= 0:
-    ypred = 1
-else:
-    ypred = 0
-"""
+
