@@ -29,41 +29,30 @@ def perceptron(x, y, b, w_init, eta, epoch):
         if y[i] == 0:
             x[i] = -x[i]
 
-
     for k in range(epoch):
 
         i = (k % x.shape[0])
         xi = x[i]
+        w_pred = w.T @ xi
 
-        #print(w[1:].T @ xi)
-        print(w.T @ xi)
-        #dot_product = w.T @ xi
-        pred = w.T @ xi
-        if (pred) <= b:
-            #print("Classified correctly with too small margin")
-            update = np.multiply(eta * k, ( y[i] - pred))
+        if w_pred <= b:
+            update = eta * xi
             w += update
-            #print((eta * k))
-            #print((eta * k)  * xi)
-        elif (w.T @ xi) > b:
-            return w
-
     return w
 
 
 w_init = np.zeros([x.shape[1], 1])
 w_init = np.append(1, w_init)
-p = perceptron(x, y.to_numpy(), 1, w_init=w_init, eta=0.1, epoch=10)
+p = perceptron(x, y.to_numpy(), 1, w_init=w_init, eta=0.1, epoch=50)
 print(p)
 print(p.shape)
-dot = p.T
-print(dot.shape)
+
 def predict(w, x):
 
     x = x.to_numpy()
 
     pred = x @ w
-    print(pred)
+
     for i in range (len(pred)):
         if pred[i] > 0:
             pred[i] = 1
@@ -72,5 +61,11 @@ def predict(w, x):
     return pred
 
 pred = predict(p, x)
-print("\n")
-print(type(pred))
+
+"""
+ypred = 0
+if (w_pred) >= 0:
+    ypred = 1
+else:
+    ypred = 0
+"""
