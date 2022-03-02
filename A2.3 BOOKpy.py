@@ -60,7 +60,6 @@ def predict(w, x):
     return pred
 
 pred = predict(p, x)
-print(pred)
-print(type(pred))
+
 
 
